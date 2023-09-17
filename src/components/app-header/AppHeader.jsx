@@ -68,7 +68,7 @@ const AppHeader = () => {
         <div className="app-header-container">
           <span className="logo">
             
-            <NavLink to="/">ZOMO</NavLink>
+            <NavLink to="/">RecipeHub</NavLink>
           </span>
           <div className="space-box"></div>
           <ul className="header-nav">
