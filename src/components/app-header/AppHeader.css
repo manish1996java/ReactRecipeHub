@@ -1,0 +1,25 @@
+.app-header{
+    background: white;
+    width: 100%;
+    position: fixed;
+    z-index: 200;
+    box-shadow: -3px 6px 9px -5px #606060;
+}
+
+
+.app-header-container{
+    display: flex;
+    align-items: center;
+    height: 7vh;
+}
+
+.header-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.header-nav>li{
+    margin-left: 2rem;
+}

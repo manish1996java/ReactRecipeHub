@@ -1,33 +1,53 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// import './App.css';
+import Home from "./pages/home/Home";
+
+import Login from "./pages/auth/Login/Login";
+import Signup from "./pages/auth/Signup/Signup";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Cart from "./pages/cart/Cart";
+import AppHeader from "./components/app-header/AppHeader";
+import PageNotFound from "./pages/auth/page-not-found/PageNotFound";
+import Auth from "./pages/auth/Auth";
+import ProtectedGuard from "./guards/ProtectedGuard";
+import ProductView from "./pages/food/product-view/ProductView";
+import Search from "./pages/search/Search";
 
 
 const App = () => {
-  let [counter, setCounter] = useState(0);
 
-  useEffect(()=>{
-      console.log("work like a component will mount");
-      return ()=>{
-        console.log('will work link component will unmount');
-      }
-  },[]);
-
-  // useEffect(()=>{
-  //   console.log("on Update Counter");
-  // },[counter]);
-
-
-  function onClickHandler(){
-    setCounter((preValue)=>preValue+1);
-    // setCounter(counter+1);
-  }
 
 
   return (
-    <> 
-      <h2>hello is the count : {counter}</h2>  
-      <button onClick={onClickHandler}>Increament By One</button>
+    <>
+      <BrowserRouter>
+        <AppHeader />
+        <div style={{ paddingTop: "7rem" }}>
+          <Routes>
+            <Route path="food/:id" element={<ProductView />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="search/:query" element={<Search />} />
+            <Route path="auth" element={<Auth />}>
+              <Route path="signup" element={<Signup />} />
+              <Route path="" element={<Login />} />
+            </Route>
+
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedGuard>
+                  <Dashboard />
+                </ProtectedGuard>
+              }
+            />
+            <Route path="" exact element={<Home />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </>
-  )
-}
+  );
+};
 
 export default App;

@@ -1,0 +1,31 @@
+.cart-wrapper{
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;   
+}
+
+
+
+
+.cart-checkout-box:hover{
+    box-shadow: 2px 2px 9px 1px #d2d2d2;
+}
+
+.tileCard{
+    margin: 0.4rem 0;
+    padding: 0.4rem 1rem;
+    box-shadow: 2px 2px 4px 1px #d2d2d2;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    border-radius: 4px;
+}
+.tileCard > img{
+    margin-right: 1rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 2rem;
+}
+.tileCard:hover{
+    box-shadow: 2px 2px 9px 1px #d2d2d2;
+}
