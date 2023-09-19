@@ -19,19 +19,39 @@ const cartSlice = createSlice({
       console.log("action",action.payload);
       const index = state.carts.findIndex(c=> c.id == action.payload.id);
       if(index != -1 && index != null){
+        const carts = state.carts[index];
+        console.log("cart quantity-->",carts.quantity,"product quantity -->",carts.productQuantity)
+        console.log("isTrue-->",carts.quantity <= carts.productQuantity);
         switch(action.payload.operation){
           case 'add': 
-            state.carts[index].quantity += 1;
-            state.totalAmount += state.carts[index].price * 1; 
+            if(carts.quantity < carts.productQuantity){
+              
+              carts.quantity += 1;
+              state.totalAmount += carts.price * 1; 
+            }
             break;
           case 'sub':  
-            if(state.carts[index].quantity >= 1){
-              state.carts[index].quantity -= 1;
-              state.totalAmount -= state.carts[index].price * 1; 
+            if(carts.quantity >= 1){
+              carts.quantity -= 1;
+              state.totalAmount -= carts.price * 1; 
             }
             break;
           default: break;
         }  
+      }
+    },
+    addCartItemQuantity: (state,action)=>{
+      const index = state.carts.findIndex(c=> c.id == action.payload.id);
+      if(index != -1 && index != null){
+        state.carts[index].quantity += 1;
+        state.totalAmount += state.carts[index].price * 1; 
+      }
+    },
+    subCartItemQuantity: (state,action)=>{
+      const index = state.carts.findIndex(c=> c.id == action.payload.id);
+      if(index != -1 && index != null){
+        state.carts[index].quantity -= 1;
+        state.totalAmount -= state.carts[index].price * 1; 
       }
     },
     addToCart: (state, action) => {
@@ -43,6 +63,8 @@ const cartSlice = createSlice({
       if (!isProductExist) {
         const cartProduct = {
           id: cartId,
+          productId:payload.id,
+          productQuantity: payload.quantity,
           title: payload.title,
           img: payload.img,
           price: payload.price,
@@ -85,6 +107,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, cartQuantityControl } =
+export const { addToCart, removeFromCart, cartQuantityControl,addCartItemQuantity,subCartItemQuantity } =
   cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,19 +1,24 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Button, Typography, Divider } from "antd";
-import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import AppBreadcrumb from "../appbreadcrumb/AppBreadcrumb";
+import uniqid from "uniqid";
 
 const { Meta } = Card;
 
 const { Title, Text } = Typography;
 
 const ProductCard = ({
+  id,
+  caption,
   title,
   img,
   price,
   index,
   quantity,
+  likes,
   addToCartHandler,
+  onLikedProduct
 }) => {
 
   const navigate = useNavigate();
@@ -31,15 +36,15 @@ const ProductCard = ({
     <>
       <Card
         hoverable
-        style={{ width: 300 }}
-        cover={<img onClick={()=>navigate(`/food/${index}`)} alt="example" src={img} />}
+        style={{ width: 300,cursor:"auto" }}
+        cover={<img style={{cursor:"pointer"}} onClick={()=>navigate(`/food/${index}`)} alt="example" src={img} />}
       >
-        <Text type="secondary">sub Title</Text>
+        <Text type="secondary">{caption}</Text>
         <Meta
-          title={title}
+          title={title.toUpperCase()}
           description="aasdfsdajf ajdflas jdfl;sdaj fl;asjfljlsjdflks "
         />
-        <p>quantity {quantity}</p>
+        {/* <p>quantity {quantity}</p> */}
         {/* <p>Price: ${price}</p> */}
         <Divider />
         <div
@@ -52,8 +57,8 @@ const ProductCard = ({
           <div>
             <Button
               type="text"
-              icon={<HeartOutlined />}
-              onClick={() => {}}
+              icon={ likes.includes(id) ? <HeartFilled /> :<HeartOutlined />}
+              onClick={onLikedProduct}
             ></Button>
             {quantity ? <Button
               type="text"

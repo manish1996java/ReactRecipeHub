@@ -1,13 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../../../store/reducers/cart-reducer";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 import {Carousel} from "react-responsive-carousel"
 import './ProductView.css';
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import AppBreadcrumb from "../../../components/appbreadcrumb/AppBreadcrumb";
 
+const {Option} = Select;
 
 const ProductView = () => {
     const dispatch = useDispatch();
+    const navigation = useNavigate();
     const {id} = useParams();
     const products = useSelector((state)=>{
       console.log("useSelector",state.productReducer.products);
@@ -21,7 +25,8 @@ const ProductView = () => {
 
 
     return (
-      <>
+      <div className="page-padding">
+        <Button type="link" onClick={()=>navigation(-1)}> <ArrowLeftOutlined />Back to result</Button>
         <div className="product-view">
 
             <div className="product-img">
@@ -41,13 +46,21 @@ const ProductView = () => {
 
             </div>
             <div className="product-description">
+              <AppBreadcrumb/>
               <h1 className="product-title">{products[id].title}</h1>
               <h2 className="product-price">${products[id].price}</h2>
               <h4 className="product-quantity"> quantity: {products[id].quantity}</h4>
-              <Button block> Add to cart</Button>
+              <Select
+                defaultValue="lucy"
+                style={{ width: 120 }}
+                onChange={()=>console.log('onChange')}
+                />
+                {}
+                
+              <Button onClick={addIntoCart} block> Add to cart</Button>
             </div>
         </div>
-      </>
+      </div>
     );
 };
 

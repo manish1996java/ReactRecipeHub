@@ -13,6 +13,7 @@ import Auth from "./pages/auth/Auth";
 import ProtectedGuard from "./guards/ProtectedGuard";
 import ProductView from "./pages/food/product-view/ProductView";
 import Search from "./pages/search/Search";
+import Food from "./pages/food/Food";
 
 
 const App = () => {
@@ -23,9 +24,10 @@ const App = () => {
     <>
       <BrowserRouter>
         <AppHeader />
-        <div style={{ paddingTop: "7rem" }}>
+        <div >
           <Routes>
             <Route path="food/:id" element={<ProductView />} />
+            <Route path="food" element={<Food/>} />
             <Route path="cart" element={<Cart />} />
             <Route path="search/:query" element={<Search />} />
             <Route path="auth" element={<Auth />}>

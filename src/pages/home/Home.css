@@ -1,0 +1,54 @@
+.home-page {}
+
+.main-banner {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+
+@media screen and (max-width: 992px) {
+    .banner-content {
+        width: 100%;
+    }
+    .banner-image {
+        display: none;
+    }
+}
+
+.banner-content {
+    
+    width: 100rem;
+}
+.banner-heading{
+    line-height: 1.3em!important;
+}
+
+.banner-subtext{
+    margin-top: 1rem;
+}
+
+.button-group{
+    margin-top: 1rem;
+}
+
+.banner-image {
+    flex: 1 1;
+    justify-content: center;
+    position: relative;
+}
+
+.dummy-card-1{
+    position: absolute;
+    left: 24rem;
+    bottom: -1rem;
+}
+
+.dummy-card-2{
+    position: absolute;
+    bottom: 6rem;
+    left: -1rem;
+}
+
+.banner-image img {
+    width: 40em;
+}

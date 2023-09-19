@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import products from '../../data/products';
 import ProductMode from "../../enums/ProductMode";
+import uniqid from 'uniqid';
 
 const initialState = {
     products:products,
@@ -14,9 +15,9 @@ const productSlice = createSlice({
   reducers: {
     addProduct: (state,action) => {
       console.log("addProduct",action.payload);
-      let prod = action.payload;
+      let prod = {...action.payload,id:uniqid()};
       prod.imgs = [];
-      prod.imgs[0] = {id:"1",img:action.payload.img};
+      prod.imgs[0] = {id:uniqid(),img:action.payload.img};
       state.products.push(prod);
     },
     editProduct:(state,action)=>{
@@ -25,10 +26,17 @@ const productSlice = createSlice({
       return state;
     },
     deleteProduct:(state,action)=>{
-      const {id} = action.payload;
-      let product = state.products.find((p)=>p.id === id);
-      let index = state.products.indexOf(product);
-      state.products[index].isDeleted = true;
+      const id = action.payload;
+      let products = state.products.filter((p)=>p.id !== id);
+      console.log("delete Products", action.payload);
+      
+      return state = {
+        ...state,
+        products
+      }
+      // let index = state.products.indexOf(product);
+      // delete state.products[index];
+      // state.products[index].isDeleted = true;
     },
     loadProduct: (state) => {
       state;
@@ -50,6 +58,6 @@ const productSlice = createSlice({
   },
 });
 
-export const {addProduct, loadProduct, selectedProduct,changeMode} = productSlice.actions;
+export const {addProduct, loadProduct, selectedProduct,changeMode, deleteProduct} = productSlice.actions;
 export default productSlice.reducer;
 

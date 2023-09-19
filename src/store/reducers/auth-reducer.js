@@ -39,8 +39,8 @@ const authSlice = createSlice({
             }
         },
         signup:function(state, action){
-            const {userId,password} = action.payload;
-            let userState = {userId,password};
+            const {userId,password,role} = action.payload;
+            let userState = {userId,password,roles:[role]};
             saveInLocal('signupState',userState);
             alert('userCreated');
         },

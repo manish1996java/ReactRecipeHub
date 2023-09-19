@@ -20,7 +20,7 @@ const AppBreadcrumb = () => {
             // console.log("pathnames",pathnames);
             if(i == 0){
                 // console.log('if',pathnames);
-                link = "";
+                link = "/";
             }else{
                 // console.log('else',pathnames.slice(0,i).join('/'));
                 link = pathnames.slice(0,i+1).join('/');

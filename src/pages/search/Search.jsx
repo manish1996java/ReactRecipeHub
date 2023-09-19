@@ -1,9 +1,10 @@
-import { Card, Typography } from "antd";
+import { Card, Divider, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import SearchedList from "./searched-list/SearchedList";
 
-const {Title,Text} = Typography;
+const { Title, Text } = Typography;
 
 const Search = () => {
   const params = useParams();
@@ -27,17 +28,17 @@ const Search = () => {
       let isItemMatchInside = itemValues.some((item) => {
         // console.log("some", item);
         if (typeof item === "number") {
-        //   console.log("item in number", item.toString());
+          //   console.log("item in number", item.toString());
           return item.toString().includes(searchTerm);
         } else {
-        //   console.log("item in string", item);
+          //   console.log("item in string", item);
           if (typeof item === "boolean") {
             return false;
           }
           return item.includes(searchTerm);
         }
       });
-    //   console.log("value", isItemMatchInside);
+      //   console.log("value", isItemMatchInside);
       return isItemMatchInside;
     });
     SetFilteredList(filteredProducts);
@@ -45,28 +46,22 @@ const Search = () => {
   };
 
   return (
-    <div className="app-container">
-      {filteredList.map((p, i) => {
-        return (
-          <p key={i} style={{cursor:"pointer"}}>
-              <Card
-                type="inner"
-                // title={p.title}
-                // extra={<a href="#">More</a>}
-              >
-                <div style={{display:"flex",gap:"1rem"}}>
-                    <img src={p.img} style={{width:"10rem",aspectRatio:"1/1.2"}}/>
-                    <div style={{flex:"1 1"}}>
-                        <Title level={3}>{p.title?.toUpperCase()} </Title>
-                        <Title level={5}>{p.caption?.toUpperCase()} </Title>
-                        <Text>{p.description}</Text>
-                        <Title level={2} style={{marginTop:"1rem!important;"}}>${p.price} </Title>
-                    </div>
-                </div>
-              </Card>
+    <div className="page-padding">
+      <div className="app-container">
+
+        <Title level={2}>Search Result</Title>
+        <Divider></Divider>
+        {filteredList && filteredList.length ? (
+          <SearchedList filteredList={filteredList} />
+        ) : (
+          <p style={{ display: "flex", justifyContent: "center" }}>
+            <img
+              style={{ width: "10Rem" }}
+              src="/public/undraw_page_not_found_re_e9o6.svg"
+            />
           </p>
-        );
-      })}
+        )}
+      </div>
     </div>
   );
 };

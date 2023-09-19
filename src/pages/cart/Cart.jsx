@@ -21,6 +21,8 @@ const Cart = () => {
     return {...state.cartReducer,...state.authReducer};
   });
 
+  
+
 
   const removeProdCart = (id) => {
     console.log("removeFormCart", id);
@@ -28,6 +30,7 @@ const Cart = () => {
   };
 
   const quantityControllerHandler = (id, operation) => {
+    console.log("id",id);
     dispatch(cartQuantityControl({ id, operation }));
   };
 
@@ -49,7 +52,7 @@ const Cart = () => {
   }
 
   return (
-    <div>
+    <div className="page-padding">
       <div className="app-container">
         <h2>Cart</h2>
         <div className="cart-wrapper">

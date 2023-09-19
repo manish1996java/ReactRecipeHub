@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./AppHeader.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {Avatar, Badge, Button, Dropdown} from 'antd';
-import { ShoppingCartOutlined} from '@ant-design/icons';
+import { HeartOutlined, ShoppingCartOutlined} from '@ant-design/icons';
 import { logout } from "../../store/reducers/auth-reducer";
 import FilterInput from "../../pages/home/filter-input/FilterInput";
 
@@ -10,14 +10,17 @@ const AppHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isAuth = useSelector((state)=>{
-    // console.group("isAuth",state);
-    return state.authReducer.isAuth;
+  const {isAuth,user,carts,likes} = useSelector((state)=>{
+    return {...state.authReducer,...state.cartReducer,...state.likedReducer};
   })
-  const carts = useSelector((state)=>{
-      // console.log("appheader",state.cartReducer.carts);
-      return state.cartReducer.carts;
-  })
+  // const isAuth = useSelector((state)=>{
+  //   // console.group("isAuth",state);
+  //   return state.authReducer.isAuth;
+  // })
+  // const carts = useSelector((state)=>{
+  //     // console.log("appheader",state.cartReducer.carts);
+  //     return state.cartReducer.carts;
+  // })
 
   const userLogout = () => {
     dispatch(logout())
@@ -32,7 +35,9 @@ const AppHeader = () => {
       placement="bottomLeft"
       arrow
     >
-      <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>U</Avatar>
+      
+        <Avatar  style={{ cursor:"pointer",backgroundColor: '#fde3cf', color: '#f56a00' }}>{user.userId.charAt(0).toUpperCase()}</Avatar>
+      
     </Dropdown>
     ):(
       <NavLink to="/auth/">
@@ -68,7 +73,7 @@ const AppHeader = () => {
         <div className="app-header-container">
           <span className="logo">
             
-            <NavLink to="/">RecipeHub</NavLink>
+            <Link to="/"> RecipeHub</Link>
           </span>
           <div className="space-box"></div>
           <ul className="header-nav">
@@ -79,18 +84,28 @@ const AppHeader = () => {
             </li>
             <li>
               <div>
-                <NavLink to="">Home</NavLink>
+                <NavLink to="/food">Products</NavLink>
               </div>
             </li>
-            <li>
+            {(user && user.roles &&  user.roles.includes('admin')) ? (
+              <li>
               <div>
                 <NavLink to="dashboard">Dashboard</NavLink>
               </div>
             </li>
+            ):(<></>)}
+            
+            <li>
+            {/* <NavLink to="cart"> */}
+              <Badge count={likes.length}>
+                <HeartOutlined style={{ fontSize: '20px' }}/>
+              </Badge>
+            {/* </NavLink>   */}
+            </li>
             <li>
             <NavLink to="cart">
               <Badge count={carts.length}>
-                <ShoppingCartOutlined  style={{ fontSize: '20px', color: '#08c' }}/>
+                <ShoppingCartOutlined  style={{ fontSize: '20px' }}/>
               </Badge>
             </NavLink>
             </li>

@@ -14,8 +14,9 @@ h1,h2,h3,h4,h5,h6{
 ul,li{
     list-style: none;
 }
-a{
+a:visited,a:hover,a:active,a:focus,a{
     text-decoration: none;
+    color:#3b3a3a;
 }
 
 .space-box{
@@ -24,4 +25,8 @@ a{
 
 .app-container{
     margin: 0 2rem;
+}
+
+.page-padding{
+    padding-top: 4rem
 }
